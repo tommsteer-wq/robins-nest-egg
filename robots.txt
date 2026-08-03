@@ -1,0 +1,9 @@
+# Robin's Nest Egg
+# ---------------------------------------------------------------------------
+# This file tells search engines what they may look at.
+# We want to be found, so everything is allowed.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://robinsnestegg.co.uk/sitemap.xml

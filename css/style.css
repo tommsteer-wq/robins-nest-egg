@@ -1,0 +1,723 @@
+/* ==========================================================================
+   Robin's Nest Egg — shared stylesheet
+   --------------------------------------------------------------------------
+   THIS IS THE ONLY FILE THAT CONTROLS HOW THE WHOLE SITE LOOKS.
+   Every page uses it. Change a colour here and it changes everywhere.
+
+   The file is organised top-to-bottom in this order:
+     1. Colours and sizes (the "settings" — most edits happen here)
+     2. Basic resets and page defaults
+     3. Layout helpers
+     4. Header and navigation
+     5. Homepage sections (hero, badges, story, signup)
+     6. Topic page pieces (age bands) — used by /topics/ pages
+     7. Footer
+     8. Accessibility and motion preferences
+
+   Written to be readable rather than clever. Comments explain the "why".
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. COLOURS AND SIZES — the settings panel
+   --------------------------------------------------------------------------
+   These are "CSS variables". Think of them as named jars of paint.
+   Change the value once here, and every place that uses that name updates.
+   ========================================================================== */
+
+:root {
+  /* --- Brand colours --- */
+  --cream:          #FDF8F0;  /* warm off-white page background */
+  --cream-deep:     #F7EFE2;  /* slightly darker cream, for alternating bands */
+  --egg-blue:       #8FD8D6;  /* robin's-egg blue — the signature accent */
+  --egg-blue-soft:  #DCF2F1;  /* very pale blue, for card backgrounds */
+  --egg-blue-deep:  #1F6E6C;  /* dark teal — safe for text on light backgrounds */
+  --robin-red:      #C1502B;  /* robin's breast — buttons and highlights */
+  --robin-red-dark: #9E3F20;  /* darker, for hover states */
+
+  /* --- Age band colours ---
+     Each of the three age bands gets its own gentle colour, so a returning
+     visitor can spot "their" section instantly on every topic page.
+     All three pairs have been contrast-checked for readability. */
+  --hatchling-bg:   #DCF2F1;  /* pale blue */
+  --hatchling-ink:  #1F6E6C;
+  --fledgling-bg:   #FBE8D8;  /* pale peach */
+  --fledgling-ink:  #8A3E1B;
+  --highflyer-bg:   #E4E8F5;  /* pale periwinkle */
+  --highflyer-ink:  #39457D;
+
+  /* --- Text colours ---
+     Deliberately near-black rather than grey: grey text on cream fails
+     contrast checks, and this site must be readable for everyone. */
+  --ink:            #2E2A26;  /* main body text */
+  --ink-soft:       #5A524A;  /* secondary text — still passes AA contrast */
+  --white:          #FFFFFF;
+
+  /* --- Type ---
+     A system font stack: uses the nice font already on the reader's device.
+     Nothing to download, so pages load instantly, and no third-party font
+     service ever sees a visitor (which matters on a children's site). */
+  --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+
+  /* Base font size. 1.125rem = 18px — generous, per the accessibility brief.
+     Nothing on this site should ever be small or thin. */
+  --size-body:      1.125rem;
+
+  /* --- Spacing ---
+     One scale, used everywhere, so spacing stays consistent by default. */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.75rem;
+  --space-lg:  3rem;
+  --space-xl:  5rem;
+
+  /* --- Rounded shapes — the "storybook" feel comes mostly from these --- */
+  --round-sm:  12px;
+  --round-md:  20px;
+  --round-lg:  32px;
+  --round-pill: 999px;
+
+  /* --- Soft shadows — gentle, never harsh --- */
+  --shadow-soft:  0 4px 16px rgba(46, 42, 38, 0.07);
+  --shadow-lift:  0 8px 28px rgba(46, 42, 38, 0.11);
+
+  /* --- Maximum text width ---
+     Long lines are hard to read. This keeps paragraphs comfortable. */
+  --measure: 38rem;
+  --page-width: 68rem;
+}
+
+
+/* ==========================================================================
+   2. BASIC RESETS AND PAGE DEFAULTS
+   ========================================================================== */
+
+/* Makes padding behave predictably. A standard, boring, sensible default. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Smooth scroll when clicking an on-page link (e.g. "Join the list"). */
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.65;          /* airy — easier for tired parents and new readers */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Headings ---
+   Sized with clamp() so they shrink on phones and grow on desktops without
+   needing separate mobile rules. clamp(smallest, preferred, largest). */
+h1, h2, h3 {
+  line-height: 1.2;
+  color: var(--ink);
+  margin-top: 0;
+  text-wrap: balance;   /* stops one lonely word dangling on its own line */
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.15rem); margin-bottom: var(--space-sm); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); margin-bottom: var(--space-sm); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); margin-bottom: var(--space-xs); }
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+}
+
+/* Links: underlined by default. Underlines are an accessibility feature —
+   they identify links without relying on colour alone. */
+a {
+  color: var(--egg-blue-deep);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--robin-red-dark);
+}
+
+img {
+  max-width: 100%;   /* images never overflow their container on a phone */
+  height: auto;
+}
+
+
+/* ==========================================================================
+   3. LAYOUT HELPERS
+   ========================================================================== */
+
+/* .wrap centres content and stops it stretching too wide on big screens.
+   Used on nearly every section. */
+.wrap {
+  width: 100%;
+  max-width: var(--page-width);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+/* A narrower wrap for long reading passages (Our Story, topic text). */
+.wrap-narrow {
+  width: 100%;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+/* Standard vertical breathing room for a page section. */
+.section {
+  padding-block: var(--space-xl);
+}
+
+/* Alternating background, to separate sections without hard lines. */
+.section-tinted {
+  background-color: var(--cream-deep);
+}
+
+/* Visible only to screen readers — used for the "skip to content" link
+   and for hidden headings that keep the document structure logical. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The skip link becomes visible when tabbed to with a keyboard. */
+.skip-link {
+  position: absolute;
+  top: var(--space-xs);
+  left: var(--space-xs);
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--white);
+  color: var(--ink);
+  border-radius: var(--round-sm);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-200%);   /* parked off-screen until focused */
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+
+/* ==========================================================================
+   4. HEADER AND NAVIGATION
+   Kept deliberately lean — a handful of links, per the brief.
+   ========================================================================== */
+
+.site-header {
+  background-color: var(--cream);
+  border-bottom: 1px solid rgba(46, 42, 38, 0.08);
+  padding-block: var(--space-sm);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;              /* stacks neatly on a narrow phone */
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+/* The wordmark / logo link. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--egg-blue-deep);
+}
+
+/* The emoji robin. aria-hidden in the HTML, since it's decoration. */
+.brand__bird {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  padding-block: 0.25rem;
+  border-bottom: 3px solid transparent;
+}
+
+.site-nav a:hover {
+  border-bottom-color: var(--egg-blue);
+  color: var(--egg-blue-deep);
+}
+
+/* Marks the page you're currently on. */
+.site-nav a[aria-current="page"] {
+  border-bottom-color: var(--robin-red);
+}
+
+
+/* ==========================================================================
+   5. HOMEPAGE SECTIONS
+   ========================================================================== */
+
+/* --- Hero -----------------------------------------------------------------
+   A soft blue-to-cream gradient. No image, so it loads instantly. */
+.hero {
+  background: linear-gradient(170deg, var(--egg-blue-soft) 0%, var(--cream) 78%);
+  padding-block: var(--space-xl) var(--space-lg);
+  text-align: center;
+}
+
+.hero__bird {
+  font-size: clamp(3.5rem, 10vw, 5.5rem);
+  line-height: 1;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+/* The strapline, sitting above the headline in smaller caps. */
+.hero__strapline {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--egg-blue-deep);
+  margin-bottom: var(--space-sm);
+}
+
+/* The sub-line under the main headline. Slightly larger than body text. */
+.hero__sub {
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  color: var(--ink-soft);
+  max-width: var(--measure);
+  margin-inline: auto;
+  margin-bottom: var(--space-md);
+}
+
+/* --- Trust badges --------------------------------------------------------
+   Free forever · No ads · No sign-up · No app to download.
+   A <ul> because it genuinely is a list — screen readers announce the count. */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs) 0.75rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  max-width: 44rem;
+}
+
+.badges li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.98rem;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--round-pill);
+  box-shadow: var(--shadow-soft);
+}
+
+/* The little tick. Decorative, so aria-hidden in the HTML. */
+.badges .tick {
+  color: var(--egg-blue-deep);
+  font-weight: 700;
+}
+
+/* --- Buttons ------------------------------------------------------------- */
+.button {
+  display: inline-block;
+  background-color: var(--robin-red);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.9rem 1.9rem;
+  border: none;
+  border-radius: var(--round-pill);
+  box-shadow: var(--shadow-soft);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.button:hover {
+  background-color: var(--robin-red-dark);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* --- Our Story ----------------------------------------------------------- */
+.story p {
+  font-size: 1.1rem;
+}
+
+/* A gentle decorative divider between sections. */
+.divider {
+  border: 0;
+  height: 3px;
+  width: 5rem;
+  margin: var(--space-md) auto;
+  background: var(--egg-blue);
+  border-radius: var(--round-pill);
+}
+
+/* --- Email signup -------------------------------------------------------- */
+.signup {
+  background: var(--white);
+  border-radius: var(--round-lg);
+  box-shadow: var(--shadow-lift);
+  padding: var(--space-md);
+  max-width: 34rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* --- The EmailOctopus form -----------------------------------------------
+   EmailOctopus draws its own form into the .signup__embed box when the page
+   opens, bringing its own plain styling with it. The rules below repaint that
+   form in our colours so it looks like part of the site rather than a bolted-on
+   widget. We're styling somebody else's markup, hence the specific class names
+   below (.emailoctopus-form, .form-control, .btn-primary) — those are theirs,
+   not ours, so don't rename them.
+
+   The "!important" marks are needed here (and only here) because EmailOctopus's
+   own stylesheet loads after ours and would otherwise win. */
+
+.signup__embed {
+  /* Reserves roughly the right amount of space before the form arrives, so the
+     page doesn't visibly jump as it loads. */
+  min-height: 9rem;
+  margin-block: var(--space-sm);
+}
+
+/* The email box */
+.signup__embed .emailoctopus-form .form-control {
+  font-family: inherit !important;
+  font-size: 1.05rem !important;
+  padding: 0.85rem 1.1rem !important;
+  color: var(--ink) !important;
+  background: var(--cream) !important;
+  border: 2px solid rgba(46, 42, 38, 0.18) !important;
+  border-radius: var(--round-pill) !important;
+  box-shadow: none !important;
+}
+
+.signup__embed .emailoctopus-form .form-control:focus {
+  outline: 3px solid var(--egg-blue-deep) !important;
+  outline-offset: 1px;
+  border-color: transparent !important;
+}
+
+/* The submit button — matches .button used elsewhere on the site */
+.signup__embed .emailoctopus-form .btn-primary {
+  background-color: var(--robin-red) !important;
+  border-color: var(--robin-red) !important;
+  color: var(--white) !important;
+  font-family: inherit !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  padding: 0.9rem 1.9rem !important;
+  border-radius: var(--round-pill) !important;
+  box-shadow: var(--shadow-soft);
+}
+
+.signup__embed .emailoctopus-form .btn-primary:hover {
+  background-color: var(--robin-red-dark) !important;
+  border-color: var(--robin-red-dark) !important;
+}
+
+/* The consent tick-box line, and any helper text */
+.signup__embed .emailoctopus-form label {
+  font-size: 0.98rem;
+  color: var(--ink);
+  text-align: left;
+  line-height: 1.5;
+}
+
+/* The small "Powered by EmailOctopus" credit. Kept — it's part of the free
+   plan — but toned down so it doesn't compete with the site's own text. */
+.signup__embed .emailoctopus-form a[href*="emailoctopus"] {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* The privacy note under the form. */
+.signup__privacy {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin-bottom: 0;
+}
+
+/* EmailOctopus's hidden anti-spam "honeypot" field. Real people never see it;
+   spam robots fill it in and get rejected. Their script supplies this field
+   itself — this rule is just insurance that it stays properly hidden. */
+.email-octopus-form-row-hp {
+  position: absolute !important;
+  left: -5000px !important;
+}
+
+
+/* ==========================================================================
+   6. TOPIC PAGE PIECES
+   These rules are used by /topics/*/index.html pages. They live here in the
+   shared stylesheet so all eleven future topic pages look identical.
+   ========================================================================== */
+
+/* --- Breadcrumb trail ("Home › Saving") ---------------------------------- */
+.breadcrumb {
+  font-size: 0.98rem;
+  color: var(--ink-soft);
+  padding-top: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+.breadcrumb a {
+  color: var(--egg-blue-deep);
+}
+
+/* --- Topic page header --------------------------------------------------- */
+.topic-header {
+  padding-bottom: var(--space-md);
+}
+
+/* The one-line summary under the topic title. */
+.topic-header__intro {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: var(--ink-soft);
+  max-width: var(--measure);
+}
+
+/* --- The age chooser ----------------------------------------------------
+   Three big, tappable links that jump down to the right section.
+   These are ordinary links to anchors on the same page — no JavaScript, and
+   nothing is hidden. A visitor can also simply scroll and read all three. */
+.age-chooser {
+  background: var(--white);
+  border-radius: var(--round-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.age-chooser__prompt {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: var(--space-sm);
+}
+
+.age-chooser ul {
+  display: flex;
+  flex-wrap: wrap;          /* becomes a neat stack on a phone */
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.age-chooser li {
+  flex: 1 1 12rem;          /* three across on desktop, stacked on mobile */
+}
+
+.age-chooser a {
+  display: block;
+  height: 100%;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--round-md);
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.age-chooser a:hover {
+  transform: translateY(-2px);
+  border-color: currentColor;
+}
+
+/* The small age range under each band name. */
+.age-chooser .ages {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* Each chooser button borrows its age band's colour. */
+.age-chooser a.hatchlings { background: var(--hatchling-bg); color: var(--hatchling-ink); }
+.age-chooser a.fledglings { background: var(--fledgling-bg); color: var(--fledgling-ink); }
+.age-chooser a.highflyers { background: var(--highflyer-bg); color: var(--highflyer-ink); }
+
+/* --- An age band section ------------------------------------------------
+   One per age group. Every word is permanently present in the page — nothing
+   is hidden and nothing is loaded in by a script. */
+.age-band {
+  background: var(--white);
+  border-radius: var(--round-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  /* Stops the sticky-ish jump landing with the heading jammed to the very top
+     of the screen when someone uses the age chooser above. */
+  scroll-margin-top: var(--space-sm);
+}
+
+/* The coloured label: Hatchlings / Fledglings / High Flyers. */
+.age-band__label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--round-pill);
+  margin-bottom: var(--space-sm);
+}
+
+/* Each band's own colour, matching its button in the age chooser. */
+.age-band--hatchlings .age-band__label { background: var(--hatchling-bg); color: var(--hatchling-ink); }
+.age-band--fledglings .age-band__label { background: var(--fledgling-bg); color: var(--fledgling-ink); }
+.age-band--highflyers .age-band__label { background: var(--highflyer-bg); color: var(--highflyer-ink); }
+
+/* The opening line of each band, set slightly larger — it's the big idea. */
+.age-band__lead {
+  font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: var(--space-sm);
+}
+
+/* Hatchlings text is set a touch larger — youngest readers, biggest type. */
+.age-band--hatchlings p {
+  font-size: 1.2rem;
+}
+
+/* --- The "Try this:" activity box at the end of each age band ------------- */
+.try-this {
+  background: var(--cream-deep);
+  border-left: 5px solid var(--egg-blue);
+  border-radius: var(--round-sm);
+  padding: var(--space-sm) var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.try-this p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- "What's next" box at the foot of a topic page ------------------------ */
+.up-next {
+  background: var(--egg-blue-soft);
+  border-radius: var(--round-lg);
+  padding: var(--space-md);
+  text-align: center;
+}
+
+.up-next p:last-child {
+  margin-bottom: 0;
+}
+
+/* Text that describes something not built yet. Kept as plain text rather than
+   a link, so the site never contains a link that leads nowhere. */
+.coming-soon {
+  font-weight: 700;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   7. FOOTER
+   ========================================================================== */
+
+.site-footer {
+  background-color: var(--egg-blue-soft);
+  padding-block: var(--space-lg);
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: center;
+}
+
+.site-footer p {
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
+.site-footer__promise {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+
+/* ==========================================================================
+   8. ACCESSIBILITY AND MOTION PREFERENCES
+   ========================================================================== */
+
+/* A clear, visible outline for anyone navigating with a keyboard.
+   Never remove this — it's how keyboard and screen reader users see
+   where they are on the page. */
+:focus-visible {
+  outline: 3px solid var(--egg-blue-deep);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Respects the visitor's system setting for reduced motion —
+   some people get motion sickness from animation. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Print ---
+   Parents may print a topic page for the fridge. Keep it plain and inkless. */
+@media print {
+  .site-header,
+  .site-footer,
+  .signup {
+    display: none;
+  }
+  body {
+    background: var(--white);
+    font-size: 12pt;
+  }
+}

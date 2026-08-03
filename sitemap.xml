@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Robin's Nest Egg sitemap
+  =========================================================================
+  This is a plain list of every page that exists, for search engines to read.
+  Google Search Console reads this file to discover the site's pages.
+
+  WHEN YOU ADD A NEW PAGE: copy one <url> block below, change the <loc>
+  address and the <lastmod> date. Only list pages that actually exist;
+  listing a page that isn't there causes errors in Search Console.
+
+  <lastmod> is the date that page's content last changed (YYYY-MM-DD).
+
+  ONE ODD RULE TO KNOW: never put two hyphens in a row inside these comment
+  blocks. It is not allowed in this type of file and it stops Google being
+  able to read the sitemap at all. Use equals signs for dividing lines.
+  =========================================================================
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://robinsnestegg.co.uk/</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://robinsnestegg.co.uk/topics/saving/</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

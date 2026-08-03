@@ -1,0 +1,53 @@
+# Robin's Nest Egg — files that must NEVER be published
+# ===========================================================================
+# Anything listed here stays on your computer only. It is not sent to GitHub
+# and it is not published to the live website.
+#
+# WHY THIS MATTERS: Vercel publishes every file in this folder to the public
+# internet. Without this list, someone could read your private planning
+# documents by simply typing their filename after your web address.
+# ===========================================================================
+
+
+# --- Private planning documents -------------------------------------------
+# These contain business strategy, competitor analysis, monetisation plans,
+# and personal family details including your daughter's real name and
+# birthday. The plan document specifically notes that the public brand keeps
+# her actual name private — publishing these files would undo that.
+robins-nest-egg-plan-v2.md
+robins-nest-egg-build-brief_1.md
+robin-mascot-exploration-brief.md
+
+# Any future planning or draft documents. Name new ones with these prefixes
+# and they'll be protected automatically.
+*-plan-*.md
+*-brief*.md
+*-draft*.md
+ideas/
+drafts/
+
+
+# --- Account and service details ------------------------------------------
+emailoctopus-form-code.txt
+
+
+# --- Tool and editor settings ---------------------------------------------
+.claude/
+.vscode/
+.idea/
+
+
+# --- Windows, macOS and OneDrive clutter ----------------------------------
+Thumbs.db
+desktop.ini
+ehthumbs.db
+.DS_Store
+*.tmp
+*~
+
+
+# --- Things that get rebuilt, never stored --------------------------------
+node_modules/
+.vercel/
+.env
+.env.*
