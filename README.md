@@ -79,13 +79,29 @@ because EmailOctopus needs a real web address to talk to. It'll work once live.
 
 ---
 
-## Job 3: Adding the Cloudflare Analytics snippet
+## Job 3: Checking your visitor numbers
 
-Once the site is live and registered with Cloudflare, they'll give you a one-line
-snippet. In **each** `.html` file, search for `CLOUDFLARE WEB ANALYTICS` — there's
-a clearly marked comment showing exactly where to paste it.
+Visitor counting is already set up, using **Vercel Web Analytics**. To see the
+numbers: Vercel → your project → **Analytics** tab. You get total page views and
+unique visitors, broken down per page.
 
-It has to go on every page, because each page counts its own visits.
+Nothing to maintain. One line does it, and it's already in both pages:
+
+```
+<script defer src="/_vercel/insights/script.js"></script>
+```
+
+**Keep that line when you copy the template** for a new topic, or that page won't
+be counted.
+
+No cookies are used, so no cookie banner is needed. The address starts with `/`,
+meaning the file comes from your own domain — no outside company is contacted
+when someone reads a page.
+
+> Originally the plan was Cloudflare Web Analytics. Switched on 3 August 2026:
+> same free, cookie-free numbers, but served from our own domain instead of a
+> third party, and no account token to wrangle. One thing to know for the future:
+> this is tied to Vercel, so if you ever move hosting, analytics moves too.
 
 ---
 

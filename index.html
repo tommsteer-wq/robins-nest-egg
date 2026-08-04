@@ -45,20 +45,24 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥚</text></svg>">
 
   <!-- ======================================================================
-       CLOUDFLARE WEB ANALYTICS GOES HERE
+       VISITOR COUNTING — Vercel Web Analytics
        ----------------------------------------------------------------------
-       Once the site is live and registered with Cloudflare, paste the
-       one-line snippet they give you directly below this comment.
-       It will look something like:
+       Counts total page views and unique visitors, per page.
 
-       <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
-               data-cf-beacon='{"token": "your-token-here"}'></script>
+       No cookies, so no cookie banner is needed and nothing follows visitors
+       around. Note the address starts with "/" — the file is served from your
+       own domain, so no outside company is contacted when someone reads a
+       page. That's better for privacy than the third-party alternatives.
 
-       Cloudflare Web Analytics is free and cookie-free, so no cookie banner
-       is needed and nothing follows visitors around.
-       The same snippet needs adding to every page (it is not in the shared
-       stylesheet, because analytics is JavaScript rather than styling).
+       This line has to be on every page, because each page counts its own
+       visits. It can't live in the shared stylesheet — that file is for
+       styling only.
+
+       Switched from Cloudflare Web Analytics on 3 August 2026: same free,
+       cookie-free numbers, but served from our own domain, and it needs no
+       account token to set up.
        ====================================================================== -->
+  <script defer src="/_vercel/insights/script.js"></script>
 
 </head>
 <body>
