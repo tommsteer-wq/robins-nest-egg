@@ -30,6 +30,8 @@ Robins Nest Egg/
 ├── topics/
 │   └── saving/
 │       └── index.html          ← the Saving topic (and the template to copy)
+├── privacy/
+│   └── index.html              ← privacy notice (update if we collect anything new)
 ├── sitemap.xml                 ← the list of pages, for Google
 ├── robots.txt                  ← tells search engines they're welcome
 └── README.md                   ← this file
@@ -122,7 +124,7 @@ No cookies are used, so no cookie banner is needed. The address starts with `/`,
 meaning the file comes from your own domain — no outside company is contacted
 when someone reads a page.
 
-> Originally the plan was Cloudflare Web Analytics. Switched on 3 August 2026:
+> Originally the plan was Cloudflare Web Analytics. Switched on 5 August 2026:
 > same free, cookie-free numbers, but served from our own domain instead of a
 > third party, and no account token to wrangle. One thing to know for the future:
 > this is tied to Vercel, so if you ever move hosting, analytics moves too.
@@ -139,22 +141,36 @@ this on two previous projects — it's the same routine.
 
 ## Job 5: Telling Google about a new page
 
-Do this each time a new page goes live. It takes 30 seconds and often turns
-"indexed in a few weeks" into "indexed in a few days".
+**This is optional.** Your sitemap already tells Google about every page, and it
+worked without any nudging for the first two pages — both were indexed within
+days. Only bother if you're impatient.
+
+### ⚠️ Two boxes that both take URLs — don't mix them up
+
+This is the single easiest thing to get wrong in Search Console.
+
+| Tool | Where to find it | What goes in it |
+|---|---|---|
+| **URL Inspection** | The search bar spanning the **very top** of the window, reading *"Inspect any URL in..."* | One page address, e.g. `https://robinsnestegg.co.uk/topics/growing-it/` |
+| **Sitemaps** | A page in the **left sidebar** | **Only ever** `sitemap.xml` |
+
+Putting a page address into the Sitemaps box produces a permanent red error and
+does nothing useful. If that happens: click the **⋮** on that row and choose
+**Remove sitemap**.
+
+### To nudge a new page
 
 1. Go to [search.google.com/search-console](https://search.google.com/search-console)
-2. Use the **search bar across the top** — that's the URL Inspection tool
-3. Paste the new page's full address, e.g.
-   `https://robinsnestegg.co.uk/topics/growing-it/`
-4. Press Enter, wait for it to check, then click **Request Indexing**
+2. Click the **search bar at the very top** (not the Sitemaps page)
+3. Paste the new page's full address and press Enter
+4. Click **Request Indexing**
 
-**You can stop doing this after a couple of months.** Once Google is visiting the
-site regularly it picks new pages up from the sitemap on its own. It only really
-helps while the domain is new and Google has no crawling habit for it.
+**You can stop doing this after a couple of months** — once Google is visiting
+regularly it picks new pages up from the sitemap on its own.
 
 ### The sitemap only needs submitting once
 
-It was submitted on 3 August 2026 and Google rechecks it automatically. You do
+It was submitted on 5 August 2026 and Google rechecks it automatically. You do
 **not** need to resubmit it when you add pages — the file updates and Google
 notices.
 
