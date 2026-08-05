@@ -672,6 +672,165 @@ img {
   margin-bottom: 0;
 }
 
+/* ==========================================================================
+   6b. MONEY WORLD MAP — the journey trail
+   --------------------------------------------------------------------------
+   Used by /topics/ — the page listing all eleven zones.
+
+   It's built as an ordered list of real links with a dashed path drawn behind
+   them, rather than as a picture of a map. Three reasons:
+     1. Every stop is a real link, so it works for screen readers and Google.
+     2. It reflows on any screen. A drawn map can't.
+     3. Adding a zone means adding one <li>, not redrawing artwork.
+
+   When the commissioned Robin illustration arrives, illustrated icons can
+   replace the emoji in each circle without touching this structure.
+   ========================================================================== */
+
+.trail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* The winding path itself: a dashed vertical line behind the markers.
+   Made with a repeating gradient rather than a border, so the dashes are
+   chunky and storybook-ish rather than thin and technical. */
+.trail::before {
+  content: "";
+  position: absolute;
+  top: 1.4rem;
+  bottom: 1.4rem;
+  left: 1.3rem;
+  width: 5px;
+  border-radius: 3px;
+  background-image: linear-gradient(var(--egg-blue) 55%, transparent 55%);
+  background-size: 5px 20px;
+}
+
+.trail__stop {
+  position: relative;
+  padding-left: 4.25rem;
+  margin-bottom: var(--space-md);
+}
+
+.trail__stop:last-child {
+  margin-bottom: 0;
+}
+
+/* The circular marker sitting on the path. */
+.trail__marker {
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  line-height: 1;
+  background: var(--white);
+  border: 4px solid var(--egg-blue);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* The card holding the zone's name and one-line description. */
+.trail__card {
+  display: block;
+  background: var(--white);
+  border-radius: var(--round-md);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  color: var(--ink);
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+/* Only the finished zones are links, so only they get a hover state. */
+a.trail__card:hover {
+  transform: translateY(-2px);
+  border-color: var(--egg-blue);
+  color: var(--ink);
+}
+
+.trail__name {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+a.trail__card .trail__name {
+  color: var(--egg-blue-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.trail__desc {
+  display: block;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* --- Zones not written yet ------------------------------------------------
+   Deliberately NOT links — a link that leads nowhere is worse than no link.
+   Drawn flat and outlined so the page reads as a real plan with gaps, rather
+   than as a broken menu. */
+.trail__stop--soon .trail__card {
+  background: transparent;
+  box-shadow: none;
+  border: 2px dashed rgba(46, 42, 38, 0.18);
+}
+
+.trail__stop--soon .trail__marker {
+  border-color: rgba(46, 42, 38, 0.18);
+  background: var(--cream);
+  opacity: 0.75;
+}
+
+.trail__stop--soon .trail__name {
+  color: var(--ink-soft);
+}
+
+/* The small "Coming soon" tag. */
+.trail__chip {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--cream-deep);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--round-pill);
+  margin-left: 0.4rem;
+  vertical-align: 0.1em;
+}
+
+/* Breathing room between the end of the trail and whatever follows it. */
+.trail + .up-next {
+  margin-top: var(--space-lg);
+}
+
+/* A short line telling the reader how much exists so far. */
+.trail-count {
+  background: var(--egg-blue-soft);
+  border-radius: var(--round-md);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-lg);
+  font-weight: 600;
+}
+
+.trail-count p:last-child {
+  margin-bottom: 0;
+}
+
 /* --- "What's next" box at the foot of a topic page ------------------------ */
 .up-next {
   background: var(--egg-blue-soft);
