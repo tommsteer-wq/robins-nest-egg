@@ -580,6 +580,41 @@ img {
 .age-chooser a.fledglings { background: var(--fledgling-bg); color: var(--fledgling-ink); }
 .age-chooser a.highflyers { background: var(--highflyer-bg); color: var(--highflyer-ink); }
 
+/* --- When the tabs script is running --------------------------------------
+   js/tabs.js shows one age band at a time and marks the chooser with
+   data-age-tabs="on". The rules below make the chosen button look clearly
+   picked, rather than three buttons that all look identical.
+
+   If the script never runs, none of this applies, all three bands stay
+   visible, and the buttons behave as ordinary jump links. */
+
+[data-age-tabs="on"] a[aria-selected="false"] {
+  opacity: 0.72;
+}
+
+[data-age-tabs="on"] a[aria-selected="true"] {
+  border-color: currentColor;
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+/* The little arrow under the chosen button, pointing at its content. */
+[data-age-tabs="on"] a[aria-selected="true"]::after {
+  content: "";
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin: 0.6rem auto -1.1rem;
+  background: currentColor;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+/* Hidden age bands. The script uses the "hidden" attribute; this makes sure
+   it is obeyed even though .age-band sets its own styles. */
+.age-band[hidden] {
+  display: none;
+}
+
 /* --- An age band section ------------------------------------------------
    One per age group. Every word is permanently present in the page — nothing
    is hidden and nothing is loaded in by a script. */
@@ -713,11 +748,18 @@ img {
 @media print {
   .site-header,
   .site-footer,
-  .signup {
+  .signup,
+  .age-chooser {
     display: none;
   }
   body {
     background: var(--white);
     font-size: 12pt;
+  }
+  /* Print ALL three age bands, even the ones currently hidden by the tabs.
+     A parent printing a topic almost certainly wants the whole thing, and the
+     tab buttons are useless on paper. */
+  .age-band[hidden] {
+    display: block !important;
   }
 }

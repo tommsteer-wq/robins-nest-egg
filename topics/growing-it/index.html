@@ -43,6 +43,10 @@
        Keep this line when copying the template, or the page isn't counted. -->
   <script defer src="/_vercel/insights/script.js"></script>
 
+  <!-- Shows one age band at a time. All three are still written out in full
+       below — this only chooses which to display. See js/tabs.js. -->
+  <script defer src="../../js/tabs.js"></script>
+
 </head>
 <body>
 
@@ -86,11 +90,14 @@
         </p>
       </header>
 
-      <!-- Three ordinary links that jump to the sections below. No JavaScript,
-           and nothing is hidden — a visitor can ignore these and just scroll. -->
-      <nav class="age-chooser" aria-labelledby="age-chooser-prompt">
+      <!-- Written as three ordinary links to the sections below. js/tabs.js
+           upgrades them into tabs, so only one age band shows at a time. If
+           that script doesn't run, all three show stacked and these stay
+           working links. The data-age-tabs attribute is what the script looks
+           for — keep it when copying this template. -->
+      <nav class="age-chooser" data-age-tabs aria-labelledby="age-chooser-prompt">
         <p class="age-chooser__prompt" id="age-chooser-prompt">
-          How old is the reader? Tap to jump to their version.
+          How old is the reader? Tap to see their version.
         </p>
         <ul>
           <li>
