@@ -32,10 +32,36 @@ Robins Nest Egg/
 │       └── index.html          ← the Saving topic (and the template to copy)
 ├── privacy/
 │   └── index.html              ← privacy notice (update if we collect anything new)
+├── js/
+│   └── tabs.js                 ← shows one age band at a time on topic pages
 ├── sitemap.xml                 ← the list of pages, for Google
 ├── robots.txt                  ← tells search engines they're welcome
+├── vercel.json                 ← tidies up web addresses (see below)
 └── README.md                   ← this file
 ```
+
+### About `vercel.json`
+
+Small but important. It contains only this:
+
+```
+{
+  "cleanUrls": true,
+  "trailingSlash": true
+}
+```
+
+**What it does.** Without it, the same page answers to several different
+addresses — `/topics/`, `/topics`, and `/topics/index.html` all worked and were
+counted as three separate pages in your visitor stats. This makes Vercel pick one
+proper address and send everything else to it.
+
+**Why it matters.** Your visitor numbers stop being split across duplicate
+addresses, and people always end up on the tidy version of the address.
+
+> ⚠️ **That file must stay valid JSON** — no comments, no trailing commas. If it
+> breaks, the whole deploy fails. It's finished and shouldn't need touching, so
+> the safest advice is: leave it alone.
 
 **`css/style.css` is the important one.** All the colours, fonts and spacing live
 in it. Change a colour there and it changes on every page at once. The top of the
