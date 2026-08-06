@@ -28,8 +28,16 @@ Robins Nest Egg/
 ├── css/
 │   └── style.css               ← controls how EVERY page looks
 ├── topics/
-│   └── saving/
-│       └── index.html          ← the Saving topic (and the template to copy)
+│   ├── index.html              ← Money World: the map of all eleven zones
+│   ├── saving/
+│   │   └── index.html          ← the Saving topic (the template to copy)
+│   ├── growing-it/
+│   └── own-a-slice/
+├── money-words/
+│   ├── index.html              ← the A–Z list of words
+│   ├── interest/
+│   │   └── index.html          ← one word (the template to copy)
+│   └── … nine more words
 ├── privacy/
 │   └── index.html              ← privacy notice (update if we collect anything new)
 ├── js/
@@ -118,6 +126,42 @@ Everything above is just these steps done for you. Useful to know they exist.
 6. **Keep the analytics line** in the new page's `<head>` (see Job 3), or that
    page won't be counted.
 7. **Preview it** (see Job 2), read it once, then publish.
+
+---
+
+## Job 1b: Adding a new Money Word
+
+Shorter than a topic — three sentences rather than three paragraphs.
+
+### The normal way
+
+Open Claude Code and say:
+
+> *"Add a Money Word for [word], with the three age explanations."*
+
+### The manual way
+
+1. **Copy a word folder** inside `money-words/`, e.g. `money-words/interest/`,
+   and rename it to the new word — lowercase, hyphens instead of spaces
+   (`compound-interest`, not `Compound Interest`).
+2. In its `index.html`, change the title, description, canonical address, the
+   `og:` lines, the breadcrumb, the `<h1>`, the one-line summary and the three
+   explanations.
+3. **Add it to `money-words/index.html`** — copy an existing `<li>` block and
+   keep the list alphabetical.
+4. **Change the count** in the box near the top of `money-words/index.html`.
+5. **Add it to `sitemap.xml`.**
+
+### Why Money Words matters more than it looks
+
+It's the part of the site strangers are most likely to find. Nobody googles
+"Robin's Nest Egg" yet, but parents constantly google things like *"how to
+explain compound interest to a 7-year-old"* — and each word page is written to
+answer exactly one of those questions.
+
+That's also why each word gets **its own page** rather than all of them sharing
+one long glossary: a single page can't rank for ten different questions, but ten
+pages each can.
 
 ---
 

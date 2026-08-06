@@ -853,6 +853,100 @@ a.trail__card .trail__name {
 
 
 /* ==========================================================================
+   6c. MONEY WORDS — the glossary
+   --------------------------------------------------------------------------
+   Used by /money-words/ (the A–Z list) and each word's own page.
+
+   Deliberately NOT tabbed, unlike the topic pages. Each explanation is a
+   sentence or two, and a grown-up looking a word up usually wants to see all
+   three at once to pick the right words for their child.
+   ========================================================================== */
+
+/* --- The A–Z list --------------------------------------------------------- */
+.word-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.word-list li {
+  margin-bottom: var(--space-sm);
+}
+
+.word-list a {
+  display: block;
+  background: var(--white);
+  border-radius: var(--round-md);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  color: var(--ink);
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.word-list a:hover {
+  transform: translateY(-2px);
+  border-color: var(--egg-blue);
+  color: var(--ink);
+}
+
+.word-list__word {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--egg-blue-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  margin-bottom: 0.15rem;
+}
+
+.word-list__nutshell {
+  display: block;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* --- A single word's page ------------------------------------------------- */
+
+/* The one-line summary under the word. Aimed at the adult skim-reading. */
+.word-nutshell {
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  color: var(--egg-blue-deep);
+  background: var(--egg-blue-soft);
+  border-radius: var(--round-md);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+/* One explanation, colour-coded by age band. */
+.word-def {
+  background: var(--white);
+  border-radius: var(--round-md);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-sm);
+  border-left: 6px solid var(--egg-blue);
+}
+
+.word-def--hatchlings { border-left-color: var(--hatchling-ink); }
+.word-def--fledglings { border-left-color: var(--fledgling-ink); }
+.word-def--highflyers { border-left-color: var(--highflyer-ink); }
+
+.word-def p:last-child {
+  margin-bottom: 0;
+}
+
+/* Hatchlings wording gets slightly larger type, as on the topic pages. */
+.word-def--hatchlings p:not(.age-band__label) {
+  font-size: 1.15rem;
+}
+
+
+/* ==========================================================================
    7. FOOTER
    ========================================================================== */
 
