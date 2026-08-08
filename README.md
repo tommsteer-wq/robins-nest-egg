@@ -94,7 +94,12 @@ file is a "settings panel" of named colours — that's where most edits belong.
 
 That's it. Steps 1 and 3 are the only ones that need your brain.
 
-### Two rules for writing the copy
+### Three rules for writing the copy
+
+- **Every age band must stand completely alone.** Only one shows at a time, so a
+  Fledglings reader never sees the Hatchlings version. Introduce every idea,
+  metaphor and example inside the band that uses it — don't refer back to
+  "the apples and the fish" if the apples were only in a different band.
 
 - **Never hard-code today's interest rates or prices.** Write "imagine the bank
   pays 5%..." so pages don't go stale. Plan an annual content review each summer.

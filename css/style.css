@@ -654,6 +654,17 @@ img {
   margin-bottom: var(--space-sm);
 }
 
+/* Bulleted lists inside an age band. */
+.age-band ul {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+  padding-left: 1.4rem;
+}
+
+.age-band li {
+  margin-bottom: 0.5rem;
+}
+
 /* Hatchlings text is set a touch larger — youngest readers, biggest type. */
 .age-band--hatchlings p {
   font-size: 1.2rem;
