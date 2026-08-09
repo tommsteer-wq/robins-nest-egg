@@ -299,9 +299,17 @@ img {
     gap: var(--space-xs);
   }
 
+  /* The header gets narrower side padding than the rest of the site. Measured
+     on a 375px phone, the three links were exactly 9px too wide for one line;
+     this buys back 24px, which also covers 360px Android screens. Only the
+     header is affected — the reading columns keep their roomier padding. */
+  .site-header .wrap {
+    padding-inline: var(--space-sm);
+  }
+
   .site-nav ul {
     justify-content: center;
-    gap: 0.4rem 1.15rem;
+    gap: 0.4rem 0.875rem;
   }
 
   /* Slightly smaller than body text so three links fit one line. Still well
