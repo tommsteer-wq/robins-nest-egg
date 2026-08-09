@@ -282,6 +282,36 @@ img {
   border-bottom-color: var(--robin-red);
 }
 
+/* --- The header on phones -------------------------------------------------
+   On a narrow screen the wordmark and the menu can't sit side by side, so
+   they stack. Left-aligned, that left a lonely menu item dangling on its own
+   line and looked like a mistake. Centring both makes the stack deliberate.
+
+   There's no "Home" link in the menu because the "Robin's Nest Egg" wordmark
+   already goes home — every website works that way, and dropping the
+   duplicate is what lets the three real links sit on one line.
+
+   34rem is roughly the width where the two stop fitting side by side. */
+@media (max-width: 34rem) {
+
+  .site-header__inner {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .site-nav ul {
+    justify-content: center;
+    gap: 0.4rem 1.15rem;
+  }
+
+  /* Slightly smaller than body text so three links fit one line. Still well
+     above anything that could be called small — do not shrink this further. */
+  .site-nav a {
+    font-size: 1rem;
+  }
+
+}
+
 
 /* ==========================================================================
    5. HOMEPAGE SECTIONS
