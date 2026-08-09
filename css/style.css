@@ -28,6 +28,7 @@
 :root {
   /* --- Brand colours --- */
   --cream:          #FDF8F0;  /* warm off-white page background */
+  --cream-warm:     #FBF3E7;  /* the masthead, and the "Try this" boxes */
   --cream-deep:     #F7EFE2;  /* slightly darker cream, for alternating bands */
   --egg-blue:       #8FD8D6;  /* robin's-egg blue — the signature accent */
   --egg-blue-soft:  #DCF2F1;  /* very pale blue, for card backgrounds */
@@ -50,14 +51,29 @@
      Deliberately near-black rather than grey: grey text on cream fails
      contrast checks, and this site must be readable for everyone. */
   --ink:            #2E2A26;  /* main body text */
-  --ink-soft:       #5A524A;  /* secondary text — still passes AA contrast */
+  --ink-soft:       #6B6157;  /* secondary text — still passes AA contrast */
+  /* The quietest text on the site. Chosen as the LIGHTEST warm grey that still
+     passes the AA contrast standard on both creams (4.85:1 and 4.66:1).
+     Anything lighter looked better and failed — don't be tempted. */
+  --ink-faint:      #776C5E;
   --white:          #FFFFFF;
 
   /* --- Type ---
-     A system font stack: uses the nice font already on the reader's device.
-     Nothing to download, so pages load instantly, and no third-party font
-     service ever sees a visitor (which matters on a children's site). */
-  --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+     TWO typefaces, each doing a different job.
+
+     --font-display is used where character matters: the wordmark, page titles,
+     the big idea at the top of each age band, and the alphabet letters in
+     Money Words. Georgia is a warm, bookish serif — the sort of thing
+     children's books have been set in for a century.
+
+     --font-body is everything else. Trebuchet is the friendliest genuinely
+     readable sans that's already installed on virtually every device.
+
+     Both are already on your reader's computer or phone, so nothing is
+     downloaded, pages load instantly, and no third-party font company ever
+     sees a visitor — which matters on a children's site. */
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --font-body: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
 
   /* Base font size. 1.125rem = 18px — generous, per the accessibility brief.
      Nothing on this site should ever be small or thin. */
@@ -124,7 +140,15 @@ h1, h2, h3 {
   text-wrap: balance;   /* stops one lonely word dangling on its own line */
 }
 
-h1 { font-size: clamp(2rem, 5vw, 3.15rem); margin-bottom: var(--space-sm); }
+/* Page titles are set in the display serif, at a normal weight rather than
+   bold — a good serif carries enough presence without being shouted. */
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  font-size: clamp(2.1rem, 5.5vw, 3.15rem);
+  margin-bottom: var(--space-sm);
+}
 h2 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); margin-bottom: var(--space-sm); }
 h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); margin-bottom: var(--space-xs); }
 
@@ -220,9 +244,11 @@ img {
    Kept deliberately lean — a handful of links, per the brief.
    ========================================================================== */
 
+/* A slightly warmer cream than the page, so the header reads as a masthead
+   rather than a line of text floating above the content. */
 .site-header {
-  background-color: var(--cream);
-  border-bottom: 1px solid rgba(46, 42, 38, 0.08);
+  background-color: var(--cream-warm);
+  border-bottom: 1px solid rgba(46, 42, 38, 0.09);
   padding-block: var(--space-sm);
 }
 
@@ -237,10 +263,12 @@ img {
 /* The wordmark / logo link. */
 .brand {
   display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 1.3rem;
-  font-weight: 700;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.42rem;
+  font-weight: 400;
+  letter-spacing: -0.015em;
   color: var(--ink);
   text-decoration: none;
 }
@@ -558,29 +586,73 @@ img {
    shared stylesheet so all eleven future topic pages look identical.
    ========================================================================== */
 
-/* --- Breadcrumb trail ("Home › Saving") ---------------------------------- */
+/* --- Breadcrumb ----------------------------------------------------------
+   Used to be a plain "Home › Money World › Saving" trail, which read like the
+   header of a Word document. Now it's small, warm and quiet, with only the
+   nearest step emphasised — so it works as a way back rather than as a
+   filing path. The full trail stays in the HTML because Google uses it. */
 .breadcrumb {
-  font-size: 0.98rem;
-  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-faint);
   padding-top: var(--space-md);
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-md);
 }
 
 .breadcrumb a {
+  color: var(--ink-faint);
+  text-decoration: none;
+}
+
+/* The last link in the trail is the one people actually want — the way back
+   up one level. It gets the colour; the rest stay quiet. */
+.breadcrumb a:last-of-type {
   color: var(--egg-blue-deep);
 }
 
-/* --- Topic page header --------------------------------------------------- */
+.breadcrumb a:hover {
+  color: var(--robin-red-dark);
+  text-decoration: underline;
+}
+
+/* --- Topic page header ---------------------------------------------------
+   Centred, with the summary beneath. A centred title block reads as a
+   designed opening; left-aligned it reads as the top of a document. */
 .topic-header {
+  text-align: center;
   padding-bottom: var(--space-md);
 }
 
 /* The one-line summary under the topic title. */
 .topic-header__intro {
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-size: clamp(1.02rem, 2vw, 1.15rem);
   color: var(--ink-soft);
-  max-width: var(--measure);
+  max-width: 32rem;
+  margin-inline: auto;
+  line-height: 1.55;
 }
+
+/* Three small eggs in the age band colours, sitting under a page title.
+   The only ornament on the page — and it means something, because those are
+   the three age bands the whole site is built around. */
+.eggs {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-top: var(--space-sm);
+}
+
+.eggs i {
+  width: 8px;
+  height: 10px;
+  border-radius: 50% 50% 45% 45%;
+  display: block;
+}
+
+.eggs i:nth-child(1) { background: var(--egg-blue); }
+.eggs i:nth-child(2) { background: #F0B08A; }
+.eggs i:nth-child(3) { background: #A9B4DC; }
 
 /* --- The age chooser ----------------------------------------------------
    Three big, tappable links that jump down to the right section.
@@ -603,7 +675,7 @@ img {
 .age-chooser ul {
   display: flex;
   flex-wrap: wrap;          /* becomes a neat stack on a phone */
-  gap: 0.75rem;
+  gap: 0.6rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -613,29 +685,45 @@ img {
   flex: 1 1 12rem;          /* three across on desktop, stacked on mobile */
 }
 
+/* Big, obvious blocks in each band's own colour. A five-year-old should be
+   able to pick theirs by colour and bird, without reading a word. */
 .age-chooser a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
   height: 100%;
-  padding: 0.9rem 1.1rem;
+  padding: 0.8rem 0.95rem;
   border-radius: var(--round-md);
   text-decoration: none;
   font-weight: 700;
-  text-align: center;
-  border: 2px solid transparent;
-  transition: transform 0.15s ease;
+  border: 3px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.age-chooser a:hover {
-  transform: translateY(-2px);
-  border-color: currentColor;
+/* The bird sitting on each block. Decorative — the band name carries meaning. */
+.age-chooser .bird {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex: none;
+}
+
+.age-chooser .name {
+  display: block;
+  font-size: 1.05rem;
+  line-height: 1.2;
 }
 
 /* The small age range under each band name. */
 .age-chooser .ages {
   display: block;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   opacity: 0.85;
+}
+
+.age-chooser a:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
 }
 
 /* Each chooser button borrows its age band's colour. */
@@ -652,24 +740,14 @@ img {
    visible, and the buttons behave as ordinary jump links. */
 
 [data-age-tabs="on"] a[aria-selected="false"] {
-  opacity: 0.72;
+  opacity: 0.68;
 }
 
+/* The chosen band is outlined in its own colour and lifted, so it's obvious
+   which version you're reading. */
 [data-age-tabs="on"] a[aria-selected="true"] {
   border-color: currentColor;
   box-shadow: var(--shadow-soft);
-  transform: translateY(-2px);
-}
-
-/* The little arrow under the chosen button, pointing at its content. */
-[data-age-tabs="on"] a[aria-selected="true"]::after {
-  content: "";
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-  margin: 0.6rem auto -1.1rem;
-  background: currentColor;
-  clip-path: polygon(50% 100%, 0 0, 100% 0);
 }
 
 /* Hidden age bands. The script uses the "hidden" attribute; this makes sure
@@ -709,11 +787,14 @@ img {
 .age-band--fledglings .age-band__label { background: var(--fledgling-bg); color: var(--fledgling-ink); }
 .age-band--highflyers .age-band__label { background: var(--highflyer-bg); color: var(--highflyer-ink); }
 
-/* The opening line of each band, set slightly larger — it's the big idea. */
+/* The opening line of each band — the big idea. Set in the display serif,
+   which lets it carry weight without being bold and shouty. */
 .age-band__lead {
-  font-size: clamp(1.2rem, 2.4vw, 1.45rem);
-  font-weight: 700;
-  line-height: 1.35;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.6vw, 1.6rem);
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
   margin-bottom: var(--space-sm);
 }
 
@@ -733,13 +814,18 @@ img {
   font-size: 1.2rem;
 }
 
-/* --- The "Try this:" activity box at the end of each age band ------------- */
+/* --- The "Try this:" activity box at the end of each age band -------------
+   A warm tinted panel rather than a bordered quote — it's an invitation to go
+   and do something, not a citation. */
 .try-this {
-  background: var(--cream-deep);
-  border-left: 5px solid var(--egg-blue);
-  border-radius: var(--round-sm);
+  background: var(--cream-warm);
+  border-radius: var(--round-md);
   padding: var(--space-sm) var(--space-md);
   margin-top: var(--space-md);
+}
+
+.try-this strong {
+  color: var(--fledgling-ink);
 }
 
 .try-this p:last-child {
@@ -936,51 +1022,142 @@ a.trail__card .trail__name {
    three at once to pick the right words for their child.
    ========================================================================== */
 
-/* --- The A–Z list --------------------------------------------------------- */
+/* --- The A–Z list --------------------------------------------------------
+   Deliberately NOT cards. A glossary is a list, and stripping the boxes is
+   most of what stops it looking like a form. No underlines either: each word
+   sits in its own generous tappable row, so nothing needs underlining to
+   look clickable. (Underlines stay on links inside sentences, where they're
+   the only thing telling a colour-blind reader it's a link.) */
 .word-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.word-list li {
-  margin-bottom: var(--space-sm);
-}
-
 .word-list a {
-  display: block;
-  background: var(--white);
-  border-radius: var(--round-md);
-  box-shadow: var(--shadow-soft);
-  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.75rem 0.6rem;
+  margin-inline: -0.6rem;
+  border-radius: var(--round-sm);
   text-decoration: none;
   color: var(--ink);
-  border: 2px solid transparent;
-  transition: transform 0.15s ease, border-color 0.15s ease;
 }
 
-.word-list a:hover {
-  transform: translateY(-2px);
-  border-color: var(--egg-blue);
+.word-list a:hover,
+.word-list a:focus-visible {
+  background: var(--cream-deep);
   color: var(--ink);
+}
+
+/* A small coloured marker instead of a bullet or a chevron. */
+.word-list a::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  margin-top: 0.5rem;
+  border-radius: 50%;
+  background: var(--egg-blue);
+  flex: none;
 }
 
 .word-list__word {
   display: block;
-  font-size: 1.25rem;
+  font-size: 1.12rem;
   font-weight: 700;
   color: var(--egg-blue-deep);
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-  margin-bottom: 0.15rem;
+  line-height: 1.25;
+  margin-bottom: 0.12rem;
 }
 
 .word-list__nutshell {
   display: block;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--ink-soft);
   line-height: 1.5;
+}
+
+/* --- Alphabet dividers ---------------------------------------------------
+   The page IS an alphabet, so it now looks like one. These aren't decoration:
+   they tell a child where they are, and give an adult something to scan. */
+.word-letter {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: var(--space-md) 0 0.2rem;
+  scroll-margin-top: 5.5rem;
+}
+
+.word-letter span {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  line-height: 1;
+  color: var(--egg-blue);
+}
+
+.word-letter i {
+  flex: 1;
+  height: 1px;
+  background: rgba(46, 42, 38, 0.12);
+}
+
+/* --- The A–Z jump rail ---------------------------------------------------
+   The strip of letters down the right-hand edge, like the one in a phone's
+   contacts list. Sticks as you scroll so it's always reachable.
+
+   Letters with no words yet are dimmed and are NOT links — tapping one would
+   go nowhere. As words are added they light up on their own.
+
+   Hidden from screen readers, because it's a shortcut through a list those
+   users can already navigate by heading — announcing 26 stray letters would
+   be noise, not help. */
+.az-rail {
+  position: sticky;
+  top: 6rem;
+  float: right;
+  margin: 0 0 var(--space-sm) var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.05rem;
+  max-height: 68vh;
+  overflow-y: auto;
+  padding: 0.35rem 0.15rem;
+  background: var(--cream-warm);
+  border-radius: var(--round-pill);
+  z-index: 5;
+  scrollbar-width: none;
+}
+
+.az-rail::-webkit-scrollbar { display: none; }
+
+.az-rail a,
+.az-rail span {
+  display: block;
+  width: 1.45rem;
+  text-align: center;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.55;
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+.az-rail a {
+  color: var(--egg-blue-deep);
+}
+
+.az-rail a:hover,
+.az-rail a:focus-visible {
+  background: var(--egg-blue-deep);
+  color: var(--white);
+}
+
+/* Letters with no words yet. */
+.az-rail span {
+  color: rgba(46, 42, 38, 0.26);
+  font-weight: 600;
 }
 
 /* --- A single word's page ------------------------------------------------- */
