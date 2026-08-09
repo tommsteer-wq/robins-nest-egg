@@ -216,9 +216,18 @@ this on two previous projects — it's the same routine.
 
 ## Job 5: Telling Google about a new page
 
-**This is optional.** Your sitemap already tells Google about every page, and it
-worked without any nudging for the first two pages — both were indexed within
-days. Only bother if you're impatient.
+**Probably optional — but we haven't properly tested it.** Your sitemap does tell
+Google about every page, and every page so far has been indexed within a day or
+two. What we don't know is whether the sitemap did that on its own.
+
+Only one page is real evidence: **Saving** was already showing as indexed before
+any successful nudge (the first attempt went into the wrong box and errored).
+Every page since has been nudged by hand, so there's no way to tell which did the
+work.
+
+**If you'd like to settle it:** publish a batch and deliberately don't nudge it.
+If it's indexed within a week, the sitemap is doing the job and you can stop
+bothering for good. Until then, nudging costs 30 seconds and can't hurt.
 
 ### ⚠️ Two boxes that both take URLs — don't mix them up
 
