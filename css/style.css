@@ -282,6 +282,31 @@ img {
   border-bottom-color: var(--robin-red);
 }
 
+/* --- The header follows you down the page, on bigger screens only ---------
+   Handy on long pages like Money World and Money Words. Deliberately NOT on
+   phones: there the wordmark and menu stack, so pinning them would eat a
+   chunk of a small screen on a site whose whole job is reading.
+
+   34.0625rem is one pixel above where the phone layout stops, so the two
+   rules can never both apply. */
+@media (min-width: 34.0625rem) {
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    /* The background must stay solid, or text scrolls through it. */
+    background-color: var(--cream);
+  }
+
+  /* Without this, clicking an age band or "Get Updates" would scroll the
+     heading up underneath the pinned bar and hide it. This leaves room. */
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+}
+
 /* --- The header on phones -------------------------------------------------
    On a narrow screen the wordmark and the menu can't sit side by side, so
    they stack. Left-aligned, that left a lonely menu item dangling on its own
