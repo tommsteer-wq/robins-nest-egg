@@ -3,6 +3,11 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/money-words/bartering/",
+      "destination": "/money-words/",
+      "permanent": true
+    },
+    {
       "source": "/money-words/bartering",
       "destination": "/money-words/",
       "permanent": true
