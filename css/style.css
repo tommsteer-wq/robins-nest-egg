@@ -1086,7 +1086,11 @@ a.trail__card .trail__name {
   align-items: center;
   gap: 0.6rem;
   margin: var(--space-md) 0 0.2rem;
-  scroll-margin-top: 5.5rem;
+  /* A little breathing room above the letter when you jump to it. On larger
+     screens the sticky-header rule further up raises this to 5.5rem, because
+     there's a pinned bar to clear. On a phone there isn't, so a small gap is
+     all that's wanted. */
+  scroll-margin-top: 1.25rem;
 }
 
 .word-letter span {
