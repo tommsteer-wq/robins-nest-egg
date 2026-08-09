@@ -586,32 +586,29 @@ img {
    shared stylesheet so all eleven future topic pages look identical.
    ========================================================================== */
 
-/* --- Breadcrumb ----------------------------------------------------------
-   Used to be a plain "Home › Money World › Saving" trail, which read like the
-   header of a Word document. Now it's small, warm and quiet, with only the
-   nearest step emphasised — so it works as a way back rather than as a
-   filing path. The full trail stays in the HTML because Google uses it. */
-.breadcrumb {
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: var(--ink-faint);
-  padding-top: var(--space-md);
-  margin-bottom: var(--space-md);
-}
+/* --- Back link -----------------------------------------------------------
+   Replaced the old "Home › Money World › Saving" trail, which read like the
+   header of a Word document. One link, going up one level, which is the only
+   thing anyone actually wanted from it.
 
-.breadcrumb a {
-  color: var(--ink-faint);
+   Trade-off worth knowing: Google sometimes shows a breadcrumb trail under a
+   search result, and a single back-link gives it less to work with. Our
+   addresses are already tidy and hierarchical (/topics/saving/), so Google can
+   usually work the trail out anyway. Judged a fair swap for a page that
+   doesn't open on a filing path. */
+.back-link {
+  display: inline-block;
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-md);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--egg-blue-deep);
   text-decoration: none;
 }
 
-/* The last link in the trail is the one people actually want — the way back
-   up one level. It gets the colour; the rest stay quiet. */
-.breadcrumb a:last-of-type {
-  color: var(--egg-blue-deep);
-}
-
-.breadcrumb a:hover {
+.back-link:hover,
+.back-link:focus-visible {
   color: var(--robin-red-dark);
   text-decoration: underline;
 }

@@ -1,4 +1,11 @@
 {
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/money-words/bartering",
+      "destination": "/money-words/",
+      "permanent": true
+    }
+  ]
 }
