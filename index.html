@@ -47,25 +47,9 @@
        commissioned Robin illustration exists. -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥚</text></svg>">
 
-  <!-- ======================================================================
-       VISITOR COUNTING — Vercel Web Analytics
-       ----------------------------------------------------------------------
-       Counts total page views and unique visitors, per page.
-
-       No cookies, so no cookie banner is needed and nothing follows visitors
-       around. Note the address starts with "/" — the file is served from your
-       own domain, so no outside company is contacted when someone reads a
-       page. That's better for privacy than the third-party alternatives.
-
-       This line has to be on every page, because each page counts its own
-       visits. It can't live in the shared stylesheet — that file is for
-       styling only.
-
-       Switched from Cloudflare Web Analytics on 5 August 2026: same free,
-       cookie-free numbers, but served from our own domain, and it needs no
-       account token to set up.
-       ====================================================================== -->
-  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Visitor counting. Skips the .vercel.app test address, so checking
+       your own changes never counts as a real visitor. See js/analytics.js. -->
+  <script defer src="js/analytics.js"></script>
 
 </head>
 <body>
