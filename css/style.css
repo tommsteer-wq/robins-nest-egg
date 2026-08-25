@@ -756,7 +756,12 @@ img {
 /* --- An age band section ------------------------------------------------
    One per age group. Every word is permanently present in the page — nothing
    is hidden and nothing is loaded in by a script. */
-.age-band {
+/* .panel is the same white card used for ordinary prose sections — the
+   privacy page, Get Updates, the Grown-Ups articles. It shares its styling
+   with .age-band because they should look identical; only the name differs,
+   so a section that has nothing to do with age bands isn't labelled as one. */
+.age-band,
+.panel {
   background: var(--white);
   border-radius: var(--round-lg);
   box-shadow: var(--shadow-soft);
@@ -766,6 +771,20 @@ img {
      of the screen when someone uses the age chooser above. */
   scroll-margin-top: var(--space-sm);
 }
+
+/* A short answer given straight away, before the detail. Parents skim. */
+.answer-first {
+  background: var(--egg-blue-soft);
+  border-radius: var(--round-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.answer-first p:last-child { margin-bottom: 0; }
+
+.answer-first strong { color: var(--egg-blue-deep); }
 
 /* The coloured label: Hatchlings / Fledglings / High Flyers. */
 .age-band__label {
