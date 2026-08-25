@@ -1218,6 +1218,69 @@ a.trail__card .trail__name {
 
 
 /* ==========================================================================
+   6d. PRINTABLE PAGES
+   --------------------------------------------------------------------------
+   Used by the conversation starters, and by any future printable.
+   ========================================================================== */
+
+/* The print button. Starts hidden and is revealed by js/print.js, so if that
+   script never runs nobody is left clicking a button that does nothing. */
+.print-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--white);
+  color: var(--egg-blue-deep);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.7rem 1.3rem;
+  border: 2px solid var(--egg-blue);
+  border-radius: var(--round-pill);
+  cursor: pointer;
+}
+
+.print-button[hidden] { display: none; }
+
+/* The line the print button sits on. */
+.print-cta {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.print-button:hover {
+  background: var(--egg-blue-soft);
+  border-color: var(--egg-blue-deep);
+}
+
+/* One zone's conversation starters. */
+.starter {
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(46, 42, 38, 0.12);
+}
+
+.starter:last-child { border-bottom: 1px solid rgba(46, 42, 38, 0.12); }
+
+.starter h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.18rem;
+  color: var(--egg-blue-deep);
+  margin: 0 0 0.35rem;
+}
+
+.starter ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.starter li {
+  margin-bottom: 0.3rem;
+  line-height: 1.5;
+}
+
+
+/* ==========================================================================
    7. FOOTER
    ========================================================================== */
 
@@ -1270,11 +1333,39 @@ a.trail__card .trail__name {
 /* --- Print ---
    Parents may print a topic page for the fridge. Keep it plain and inkless. */
 @media print {
+  /* Everything that wastes paper: the menu, the footer, the signup box, the
+     age buttons, the way back, the print button itself, and the "where to go
+     next" box (links are no use on paper). */
   .site-header,
   .site-footer,
   .signup,
-  .age-chooser {
+  .age-chooser,
+  .back-link,
+  .print-button,
+  .print-hide,
+  .up-next {
     display: none;
+  }
+
+  /* Let the text use the full width of the sheet. */
+  .wrap,
+  .wrap-narrow {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* Cards become plain text on paper — no shadows, no wasted margins. */
+  .panel,
+  .age-band {
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 1.2rem;
+    background: none;
+  }
+
+  /* Don't split a zone's questions across two sheets. */
+  .starter {
+    break-inside: avoid;
   }
   body {
     background: var(--white);
