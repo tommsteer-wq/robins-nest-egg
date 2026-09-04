@@ -1332,6 +1332,87 @@ a.trail__card .trail__name {
   min-width: 0;
 }
 
+
+/* ==========================================================================
+   SORTING CARDS — the needs and wants cut-out activity.
+   --------------------------------------------------------------------------
+   Three headed columns to sort onto, then a grid of cards to cut up. The
+   dashed borders are the cutting lines, so they must survive printing, when
+   background tints are dropped by the printer.
+   ========================================================================== */
+
+.sort-mat {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
+  margin: 0 0 1.6rem;
+}
+
+.sort-mat__col {
+  border: 2px solid var(--egg-blue-deep);
+  border-radius: var(--radius-sm, 0.5rem);
+  padding: 0.7rem 0.5rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--egg-blue-deep);
+  background: var(--egg-blue-soft);
+}
+
+.sort-mat__col span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-top: 0.15rem;
+}
+
+.sort-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sort-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 4rem;
+  padding: 0.7rem 0.55rem;
+  line-height: 1.35;
+  font-size: 0.97rem;
+  border: 1px dashed var(--ink-soft);   /* the cutting line */
+  border-radius: 0.4rem;
+  background: var(--white, #fff);
+}
+
+@media (max-width: 46rem) {
+  .sort-cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 34rem) {
+  .sort-cards { grid-template-columns: repeat(2, 1fr); }
+  .sort-mat   { grid-template-columns: 1fr; }
+}
+
+@media print {
+  /* Three across gives a card big enough for small hands to cut out. */
+  .sort-cards { grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .sort-card {
+    min-height: 2.5cm;
+    border: 1px dashed #666;
+    border-radius: 0;
+    background: none;
+    break-inside: avoid;
+  }
+  .sort-mat { break-inside: avoid; }
+  .sort-mat__col { background: none; }
+}
+
 /* On a phone the aligned column would squeeze the questions into a strip
    about 23 characters wide. So below 34rem the tag stops being a column and
    simply starts the sentence, letting every line after the first run the
